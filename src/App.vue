@@ -1,28 +1,53 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div id="app" class="container mt-2">
+    <titulo :titulo="titulo"></titulo>
+    <hr />
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <div class="jumbotron jumbotron-fluid rounded">
+          <div class="container">
+            {{ numTareas }}
+            <agregarTarea
+              :tareas="tareas"
+              v-on:incrementarNumTareas="numTareas += $event"
+            ></agregarTarea>
+            <listaTareas :tareas="tareas"></listaTareas>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
-
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import titulo from "./components/Titulo";
+import agregarTarea from "./components/NuevaTarea";
+import listaTareas from "./components/ListaDeTareas";
 
 export default {
-  name: "app",
   components: {
-    HelloWorld
+    titulo,
+    agregarTarea,
+    listaTareas
+  },
+  data() {
+    return {
+      titulo: "Lista de tareas",
+      tareas: [
+        {
+          texto: "Aprender vue js",
+          terminada: false
+        },
+        {
+          texto: "Aprender angular",
+          terminada: true
+        },
+        {
+          texto: "Aprender Flutter",
+          terminada: false
+        }
+      ],
+      numTareas: 3
+    };
   }
 };
 </script>
-
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
